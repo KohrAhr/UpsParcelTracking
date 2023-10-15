@@ -213,27 +213,11 @@
                     CanUserAddRows="False"
                     Name="dgTNView"   
                     RowHeight="36"
+                    SelectedItem="{Binding Path=Model.SelectedItem, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
                     ItemsSource="{Binding Path=Model.TNs}" Margin="0,93,0,0">
 
                     <DataGrid.Resources>
                         <ld:SearchValueConverter x:Key="SearchValueConverter" />
-                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource ResourceKey=DataGridCellTooltip}">
-                            <Setter Property="f:DataGridTextSearch.IsTextMatch">
-                                <Setter.Value>
-                                    <MultiBinding Converter="{StaticResource SearchValueConverter}">
-                                        <Binding RelativeSource="{RelativeSource Self}" Path="Content.Text" />
-                                        <Binding RelativeSource="{RelativeSource Self}" Path="(f:DataGridTextSearch.SearchValue)" />
-                                    </MultiBinding>
-                                </Setter.Value>
-                            </Setter>
-                            <Style.Triggers>
-                                <Trigger Property="f:DataGridTextSearch.IsTextMatch" Value="True">
-                                    <Setter Property="Background" Value="LightGreen" />
-                                    <Setter Property="Foreground" Value="Red" />
-                                    <Setter Property="FontWeight" Value="Bold"/>
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
 
                         <Style x:Key="DataGridCellWithStatusIndicator" TargetType="DataGridCell">
                             <Style.Triggers>
@@ -263,6 +247,24 @@
                                 </DataTrigger>
                             </Style.Triggers>
                         </Style>
+
+                        <Style TargetType="{x:Type DataGridCell}" BasedOn="{StaticResource ResourceKey=DataGridCellTooltip}">
+                            <Setter Property="f:DataGridTextSearch.IsTextMatch">
+                                <Setter.Value>
+                                    <MultiBinding Converter="{StaticResource SearchValueConverter}">
+                                        <Binding RelativeSource="{RelativeSource Self}" Path="Content.Text" />
+                                        <Binding RelativeSource="{RelativeSource Self}" Path="(f:DataGridTextSearch.SearchValue)" />
+                                    </MultiBinding>
+                                </Setter.Value>
+                            </Setter>
+                            <Style.Triggers>
+                                <Trigger Property="f:DataGridTextSearch.IsTextMatch" Value="True">
+                                    <Setter Property="Background" Value="LightGreen" />
+                                    <Setter Property="Foreground" Value="Red" />
+                                    <Setter Property="FontWeight" Value="Bold"/>
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
                     </DataGrid.Resources>
 
                     <DataGrid.ContextMenu>
@@ -280,31 +282,39 @@
                             <Separator />
 
                             <MenuItem Header="Copy to Clipboard">
-                                <MenuItem>
+                                <MenuItem Command="{Binding Path=CopyToClipboardTNCommand}">
                                     <MenuItem.Header>
                                         <WrapPanel>
                                             <TextBlock Text="Tracking Number" />
                                         </WrapPanel>
                                     </MenuItem.Header>
                                 </MenuItem>
-                                <MenuItem>
+                                <MenuItem Command="{Binding Path=CopyToClipboardCompanyNameCommand}">
                                     <MenuItem.Header>
                                         <WrapPanel>
                                             <TextBlock Text="Company name" />
                                         </WrapPanel>
                                     </MenuItem.Header>
                                 </MenuItem>
-                                <MenuItem>
+                                <MenuItem Command="{Binding Path=CopyToClipboardSubCompanyNameCommand}">
                                     <MenuItem.Header>
                                         <WrapPanel>
                                             <TextBlock Text="Sub Company name" />
                                         </WrapPanel>
                                     </MenuItem.Header>
                                 </MenuItem>
-                                <MenuItem>
+                                <MenuItem Command="{Binding Path=CopyToClipboardAccountIdCommand}">
                                     <MenuItem.Header>
                                         <WrapPanel>
                                             <TextBlock Text="Account Id" />
+                                        </WrapPanel>
+                                    </MenuItem.Header>
+                                </MenuItem>
+                                <Separator/>
+                                <MenuItem Command="{Binding Path=CopyToClipboardAllVisibleTNsCommand}">
+                                    <MenuItem.Header>
+                                        <WrapPanel>
+                                            <TextBlock Text="All visible Tracking Numbers" />
                                         </WrapPanel>
                                     </MenuItem.Header>
                                 </MenuItem>

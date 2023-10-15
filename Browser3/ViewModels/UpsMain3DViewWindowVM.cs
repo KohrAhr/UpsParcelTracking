@@ -37,8 +37,6 @@ namespace Browser3.ViewModels
             get; set;
         } = new UpsMain3DViewModel();
 
-        private const string CONST_YYYYMMDD = "yyyy-MM-dd";
-
         public UpsMain3DViewWindowVM()
         {
             InitData();
@@ -49,9 +47,9 @@ namespace Browser3.ViewModels
         {
             Model.ListOfCommonPhrases = CoreClassification.CommonPhrases;
 
-            Model.ListOfCompany = AppData.DbMSSQL.RunExecStatement<CommonIdValueObject>("SELECT distinct TOP (1000) [ID], [CompanyTitle] as [Name] FROM [dbo].[Company] order by [Name];");
-            Model.ListOfSubCompany = AppData.DbMSSQL.RunExecStatement<CommonIdValueObject>("SELECT distinct TOP (1000) [TNSubCompany] as [Name] FROM [dbo].[TNs] order by [Name];");
-            Model.ListOfAccounts = AppData.DbMSSQL.RunExecStatement<CommonIdValueObject>("SELECT distinct TOP (1000) [TNAccountID] as [Name] FROM [dbo].[TNs] where [TNAccountID] is Not null order by [Name];");
+            Model.ListOfCompany = AppData.DbMSSQL.RunExecStatement<CommonIdValueObject>(CoreQueriers.CONST_SIMPLE_LIST_OF_COMPANY);
+            Model.ListOfSubCompany = AppData.DbMSSQL.RunExecStatement<CommonIdValueObject>(CoreQueriers.CONST_SIMPLE_LIST_OF_SUBCOMPANY);
+            Model.ListOfAccounts = AppData.DbMSSQL.RunExecStatement<CommonIdValueObject>(CoreQueriers.CONST_SIMPLE_LIST_OF_ACCOUNTS);
 
             Reload();
         }
@@ -150,7 +148,7 @@ namespace Browser3.ViewModels
                 {
                     result += " and ";
                 }
-                value = Model.StartRange?.ToString(CONST_YYYYMMDD);
+                value = Model.StartRange?.ToString(CoreConstants.CONST_DB_DATE_FORMAT);
                 result += $"(TNShippedDate >= '{value}')";
             }
 
@@ -160,7 +158,7 @@ namespace Browser3.ViewModels
                 {
                     result += " and ";
                 }
-                value = Model.EndRange?.ToString(CONST_YYYYMMDD);
+                value = Model.EndRange?.ToString(CoreConstants.CONST_DB_DATE_FORMAT);
                 result += $"(TNShippedDate <= '{value}')";
             }
 

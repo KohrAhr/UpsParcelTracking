@@ -12,6 +12,15 @@ namespace Browser3.Models
 {
     public class UpsMainViewModel : PropertyChangedNotificationEx
     {
+        /// <summary>
+        ///     Currently selected entry in DataGrid
+        /// </summary>
+        public TNBaseEx SelectedItem
+        {
+            get => GetValue(() => SelectedItem);
+            set => SetValue(() => SelectedItem, value);
+        }
+
         public DateTime? StartRange
         {
             get => GetValue(() => StartRange);

@@ -4,6 +4,7 @@ using System.Collections.ObjectModel;
 using System.Data;
 using System.Data.Common;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -15,7 +16,7 @@ using Browser3.Types;
 using Dapper;
 using Lib.MVVM.Net6;
 using Lib.UI.Net6;
-using LiveCharts;
+
 
 namespace Browser3.ViewModels
 {
@@ -23,14 +24,17 @@ namespace Browser3.ViewModels
     {
         #region Command definition
         public ICommand? RefreshCommand { get; set; }
+        public ICommand? CopyToClipboardTNCommand { get; set; }
+        public ICommand? CopyToClipboardCompanyNameCommand { get; set; }
+        public ICommand? CopyToClipboardSubCompanyNameCommand { get; set; }
+        public ICommand? CopyToClipboardAccountIdCommand { get; set; }
+        public ICommand? CopyToClipboardAllVisibleTNsCommand { get; set; }
         #endregion Command definition
 
         public UpsMainViewModel Model
         {
             get; set;
         } = new UpsMainViewModel();
-
-        private const string CONST_YYYYMMDD = "yyyy-MM-dd";
 
         public UpsMainViewWindowVM()
         {
@@ -47,9 +51,9 @@ namespace Browser3.ViewModels
             Model.ListOfShippingStatuses = CoreClassification.ShippingStatus;
             Model.ListOfLateStatuses = CoreClassification.LateStatus;
 
-            Model.ListOfCompany = AppData.DbMSSQL.RunExecStatement<CommonIdValueObject>("SELECT distinct TOP (1000) [ID], [CompanyTitle] as [Name] FROM [dbo].[Company] order by [Name];");
-            Model.ListOfSubCompany = AppData.DbMSSQL.RunExecStatement<CommonIdValueObject>("SELECT distinct TOP (1000) [TNSubCompany] as [Name] FROM [dbo].[TNs] order by [Name];");
-            Model.ListOfAccounts = AppData.DbMSSQL.RunExecStatement<CommonIdValueObject>("SELECT distinct TOP (1000) [TNAccountID] as [Name] FROM [dbo].[TNs] where [TNAccountID] is Not null order by [Name];");
+            Model.ListOfCompany = AppData.DbMSSQL.RunExecStatement<CommonIdValueObject>(CoreQueriers.CONST_SIMPLE_LIST_OF_COMPANY);
+            Model.ListOfSubCompany = AppData.DbMSSQL.RunExecStatement<CommonIdValueObject>(CoreQueriers.CONST_SIMPLE_LIST_OF_SUBCOMPANY);
+            Model.ListOfAccounts = AppData.DbMSSQL.RunExecStatement<CommonIdValueObject>(CoreQueriers.CONST_SIMPLE_LIST_OF_ACCOUNTS);
 
             Reload();
         }
@@ -57,6 +61,36 @@ namespace Browser3.ViewModels
         private void InitCommands()
         {
             RefreshCommand = new RelayCommand(RefreshCommandProc);
+            CopyToClipboardTNCommand = new RelayCommand(CopyToClipboardTNCommandProc);
+            CopyToClipboardCompanyNameCommand = new RelayCommand(CopyToClipboardCompanyNameCommandProc);
+            CopyToClipboardSubCompanyNameCommand = new RelayCommand(CopyToClipboardSubCompanyNameCommandProc);
+            CopyToClipboardAccountIdCommand = new RelayCommand(CopyToClipboardAccountIdCommandProc);
+            CopyToClipboardAllVisibleTNsCommand = new RelayCommand(CopyToClipboardAllVisibleTNsCommandProc);
+        }
+
+        private void CopyToClipboardAllVisibleTNsCommandProc(object obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        private void CopyToClipboardAccountIdCommandProc(object obj)
+        {
+            ClipboardFunctions.CopyValueToClipboard<TNBaseEx>(Model.SelectedItem, "TNAccountID");
+        }
+
+        private void CopyToClipboardSubCompanyNameCommandProc(object obj)
+        {
+            ClipboardFunctions.CopyValueToClipboard<TNBaseEx>(Model.SelectedItem, "TNSubCompany");
+        }
+
+        private void CopyToClipboardCompanyNameCommandProc(object obj)
+        {
+            ClipboardFunctions.CopyValueToClipboard<TNBaseEx>(Model.SelectedItem, "CompanyTitle");
+        }
+
+        private void CopyToClipboardTNCommandProc(object obj)
+        {
+            ClipboardFunctions.CopyValueToClipboard<TNBaseEx>(Model.SelectedItem, "TNTrackingNumber");
         }
 
         private void RefreshCommandProc(object obj)
@@ -67,7 +101,7 @@ namespace Browser3.ViewModels
         private string BuildWhereCondition()
         {
             string result = string.Empty;
-            string? value = string.Empty;
+            string? value;
 
             // #1
 
@@ -138,7 +172,7 @@ namespace Browser3.ViewModels
                 {
                     result += " and ";
                 }
-                value = Model.StartRange?.ToString(CONST_YYYYMMDD);
+                value = Model.StartRange?.ToString(CoreConstants.CONST_DB_DATE_FORMAT);
                 result += $"(TNShippedDate >= '{value}')";
             }
 
@@ -148,7 +182,7 @@ namespace Browser3.ViewModels
                 {
                     result += " and ";
                 }
-                value = Model.EndRange?.ToString(CONST_YYYYMMDD);
+                value = Model.EndRange?.ToString(CoreConstants.CONST_DB_DATE_FORMAT);
                 result += $"(TNShippedDate <= '{value}')";
             }
 
