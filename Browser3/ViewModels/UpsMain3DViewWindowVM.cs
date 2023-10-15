@@ -47,9 +47,24 @@ namespace Browser3.ViewModels
         {
             Model.ListOfCommonPhrases = CoreClassification.CommonPhrases;
 
-            Model.ListOfCompany = AppData.DbMSSQL.RunExecStatement<CommonIdValueObject>(CoreQueriers.CONST_SIMPLE_LIST_OF_COMPANY);
-            Model.ListOfSubCompany = AppData.DbMSSQL.RunExecStatement<CommonIdValueObject>(CoreQueriers.CONST_SIMPLE_LIST_OF_SUBCOMPANY);
-            Model.ListOfAccounts = AppData.DbMSSQL.RunExecStatement<CommonIdValueObject>(CoreQueriers.CONST_SIMPLE_LIST_OF_ACCOUNTS);
+            //Model.ListOfCompany = AppData.DbMSSQL.RunExecStatement<CommonIdValueObject>(CoreQueriers.CONST_SIMPLE_LIST_OF_COMPANY);
+            //Model.ListOfSubCompany = AppData.DbMSSQL.RunExecStatement<CommonIdValueObject>(CoreQueriers.CONST_SIMPLE_LIST_OF_SUBCOMPANY);
+            //Model.ListOfAccounts = AppData.DbMSSQL.RunExecStatement<CommonIdValueObject>(CoreQueriers.CONST_SIMPLE_LIST_OF_ACCOUNTS);
+
+            Model.ListOfCompany = AppData.DbMSSQL.ConvertDataTableToObservableCollection<CommonIdValueObject>
+            (
+                CoreCache.GetDataFromCacheOrDatabase("CONST_SIMPLE_LIST_OF_COMPANY", CoreQueriers.CONST_SIMPLE_LIST_OF_COMPANY)
+            );
+
+            Model.ListOfCompany = AppData.DbMSSQL.ConvertDataTableToObservableCollection<CommonIdValueObject>
+            (
+                CoreCache.GetDataFromCacheOrDatabase("CONST_SIMPLE_LIST_OF_SUBCOMPANY", CoreQueriers.CONST_SIMPLE_LIST_OF_SUBCOMPANY)
+            );
+
+            Model.ListOfCompany = AppData.DbMSSQL.ConvertDataTableToObservableCollection<CommonIdValueObject>
+            (
+                CoreCache.GetDataFromCacheOrDatabase("CONST_SIMPLE_LIST_OF_ACCOUNTS", CoreQueriers.CONST_SIMPLE_LIST_OF_ACCOUNTS)
+            );
 
             Reload();
         }
@@ -190,14 +205,9 @@ namespace Browser3.ViewModels
                 "GROUP BY LateStatus " +
                 "ORDER BY LateStatus;";
 
-            string queryTemplateCount =
-                "select count(*) as TOTAL_COUNT " +
-                "from [dbo].[TNs] " +
-                "{0};";
-
             string query1 = String.Format(queryTemplateView1, tnWhere);
             string query2 = String.Format(queryTemplateView2, tnWhere);
-            string queryCount = String.Format(queryTemplateCount, tnWhere);
+            string queryCount = String.Format(CoreQueriers.CONST_TN_COUNT_TEMPLATE, tnWhere);
 
             // <lvc:PieChart.Series>
 

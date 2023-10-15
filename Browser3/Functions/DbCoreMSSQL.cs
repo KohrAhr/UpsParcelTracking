@@ -6,6 +6,7 @@ using System.Data;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using Dapper;
@@ -112,5 +113,40 @@ namespace Browser3.Functions
             return result;
         }
 
+
+        /// <summary>
+        ///     with OpenAI
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="dataTable"></param>
+        /// <returns></returns>
+        public ObservableCollection<T> ConvertDataTableToObservableCollection<T>(DataTable? dataTable) where T : new()
+        {
+            ObservableCollection<T> collection = new ObservableCollection<T>();
+
+            if (dataTable != null) 
+            { 
+                PropertyInfo[] properties = typeof(T).GetProperties();
+
+                foreach (DataRow row in dataTable.Rows)
+                {
+                    T item = new T();
+
+                    foreach (PropertyInfo property in properties)
+                    {
+                        string propertyName = property.Name;
+
+                        if (dataTable.Columns.Contains(propertyName))
+                        {
+                            var value = row[propertyName];
+                            property.SetValue(item, Convert.ChangeType(value, property.PropertyType));
+                        }
+                    }
+                    collection.Add(item);
+                }
+            }
+
+            return collection;
+        }
     }
 }

@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace Browser3.Core
+﻿namespace Browser3.Core
 {
     public static class CoreQueriers
     {
@@ -23,5 +17,10 @@ namespace Browser3.Core
             "FROM [dbo].[TNs] " +
             "where ([TNAccountID] is Not null) " +
             "order by [Name];";
+
+        public static readonly string CONST_TN_COUNT_TEMPLATE =
+            "SELECT count(*) as TOTAL_COUNT " +
+            "FROM [dbo].[TNs] " +
+            "{0};";
     }
 }
