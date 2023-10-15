@@ -1,0 +1,116 @@
+﻿using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Data;
+using System.Data.Common;
+using System.Data.SqlClient;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using Dapper;
+
+namespace Browser3.Functions
+{
+    public class DbCoreMSSQL
+    {
+        #region Variables
+        private static SqlConnection? _DbConnection = null;
+
+        public static SqlConnection? DbConnection
+        {
+            get { return _DbConnection; }
+            set { _DbConnection = value; }
+        }
+        #endregion Variables
+
+        public void OpenConnection(string aConnectionString)
+        {
+            DbConnection = new SqlConnection(aConnectionString);
+        }
+
+        public void CloseConnection()
+        {
+            DbConnection?.Close();
+            DbConnection?.DisposeAsync();
+            DbConnection = null;
+        }
+
+        /// <summary>
+        ///     Run Select statement and return data in DataTable
+        /// </summary>
+        /// <param name="aSql"></param>
+        /// <returns>
+        /// 
+        /// </returns>
+        public DataTable? RunExecStatement(string aSql)
+        {
+            DataTable? result = null;
+
+            using (SqlCommand sqlCommand = new SqlCommand(aSql, DbConnection))
+            {
+                result = new DataTable();
+                using (SqlDataAdapter sqlDataAdapter = new SqlDataAdapter(sqlCommand))
+                {
+                    sqlDataAdapter.Fill(result);
+                }
+
+            }
+
+            return result;
+        }
+
+        /// <summary>
+        ///     Run Select statement and return data in ObservableCollection
+        /// </summary>
+        /// <param name="aSql"></param>
+        /// <returns>
+        /// 
+        /// </returns>
+        public ObservableCollection<T> RunExecStatement<T>(string aSql)
+        {
+            ObservableCollection<T>? result = null;
+
+            if (DbConnection == null) 
+            {
+                throw new ArgumentNullException("Connection is null");
+            }
+
+            result = new ObservableCollection<T>(DbConnection.Query<T>(aSql).ToList());
+
+            return result;
+        }
+
+        /// <summary>
+        ///     Run Non select statement
+        /// </summary>
+        /// <param name="aSql"></param>
+        /// <returns></returns>
+        public int? RunNonExecStatement(string aSql)
+        {
+            int? result = null;
+
+            using (SqlCommand sqlCommand = new SqlCommand(aSql, DbConnection))
+            {
+                result = sqlCommand.ExecuteNonQuery();
+            }
+
+            return result;
+        }
+
+        public int RunNonExecStatementEx(string aSql) 
+        {
+            int result;
+
+            if (DbConnection == null)
+            {
+                throw new ArgumentNullException("Connection is null");
+            }
+
+            result = DbConnection.Query<int>(aSql).FirstOrDefault();
+
+            return result;
+        }
+
+    }
+}

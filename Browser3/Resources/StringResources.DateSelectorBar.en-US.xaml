@@ -1,0 +1,25 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    >
+
+
+    <system:String x:Key="resLblFirstShippedDate">First Shipped date</system:String>
+    <system:String x:Key="resLblLastShippedDate">Last Shipped date</system:String>
+    <system:String x:Key="resLblStart">Start</system:String>
+    <system:String x:Key="resLblEnd">End</system:String>
+    
+    <system:String x:Key="resLblCurrentMonth">Current month</system:String>
+    <system:String x:Key="resLblCurrentYear">Current year</system:String>
+    <system:String x:Key="resLblCurrentWeek">Current week</system:String>
+    <system:String x:Key="resLblLast15Days">Last 15 days</system:String>
+    <system:String x:Key="resLblLast30Days">Last 30 days</system:String>
+    <system:String x:Key="resLblLast45Days">Last 45 days</system:String>
+    <system:String x:Key="resLblLast60Days">Last 60 days</system:String>
+    <system:String x:Key="resLblLast90Days">Last 90 days</system:String>
+    <system:String x:Key="resLblLast180Days">Last 180 days</system:String>
+    <system:String x:Key="resLblLast365Days">Last 365 days</system:String>
+    <system:String x:Key="resLblOver1year">Over 1 year</system:String>
+    <system:String x:Key="resLblNoRange">No range</system:String>
+
+</ResourceDictionary>

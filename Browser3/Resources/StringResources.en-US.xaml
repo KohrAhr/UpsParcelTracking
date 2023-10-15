@@ -1,0 +1,35 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:system="clr-namespace:System;assembly=mscorlib"
+                    xmlns:local="clr-namespace:Browser3">
+
+    <system:String x:Key="resMainWindowTitle">Browser 3 [2023]</system:String>
+
+    <system:String x:Key="resLblHelp">_Help</system:String>
+    <system:String x:Key="resLblAbout">About</system:String>
+
+    <system:String x:Key="resLblUPS">UPS</system:String>
+
+    <system:String x:Key="resLblRefresh">Refresh</system:String>
+    <system:String x:Key="resLblEraseCurrent">Erase current</system:String>
+    <system:String x:Key="resLblEraseAllChecked">Erase all checked</system:String>
+
+    <system:String x:Key="resLblCheckCurrent">Reload current</system:String>
+    
+    <system:String x:Key="resLblCheckAllChecked">Reload all checked</system:String>
+
+    <system:String x:Key="resLblUpsTNBrowser">UPS -- Tracking Numbers Grid browser</system:String>
+    <system:String x:Key="resLblUpsTN3DBrowser">UPS -- Tracking Numbers Chart browser</system:String>
+
+    <system:String x:Key="resLblAboutApp" xml:space="preserve">Recovery Refunds software for UPS (United Parcel Service)
+Technical version 5.0
+        
+ZAM@1CLICK.LV
+Andrejs Zam.
+        
+https://1click.lv
+https://easy-recovery-refunds.com
+        
+Riga, LATVIA, EU
+(C) Y2023</system:String>
+</ResourceDictionary>

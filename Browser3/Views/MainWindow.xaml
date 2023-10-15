@@ -1,0 +1,75 @@
+﻿<b:BaseWindow x:Class="Browser3.Views.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:b="clr-namespace:Browser3.Views.Base"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Browser3.Views"
+        WindowStartupLocation="Manual"
+        WindowStyle="SingleBorderWindow"
+        ResizeMode="CanMinimize"
+        mc:Ignorable="d"
+        xmlns:vm="clr-namespace:Browser3.ViewModels" 
+        Title="{StaticResource ResourceKey=resMainWindowTitle}" 
+        Loaded="Window_Loaded" Closing="Window_Closing"
+        Height="150" Width="600">
+
+    <Window.DataContext>
+        <vm:MainWindowVM/>
+    </Window.DataContext>
+
+    <Grid>
+        <DockPanel>
+            <Menu DockPanel.Dock="Top" VerticalAlignment="Top">
+                <!--<MenuItem Header="_Options">
+                    <MenuItem Header="Settings" Command="{Binding ShowSettings}"/>
+                </MenuItem>-->
+                <MenuItem Header="{StaticResource ResourceKey=resLblHelp}">
+                    <MenuItem Header="{StaticResource ResourceKey=resLblAbout}" Command="{Binding InfoCommand}">
+                        <MenuItem.Icon>
+                            <Image Source="/Resources/Bitmaps/info_16x16.png"/>
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+            </Menu>
+
+            <ToolBarTray DockPanel.Dock="Top" VerticalAlignment="Top">
+                <ToolBar>
+                    <Button Command="{Binding InfoCommand}" ToolTip="{StaticResource ResourceKey=resLblAbout}">
+                        <StackPanel Orientation="Horizontal">
+                            <Image 
+                                Style="{StaticResource ResourceKey=IconImage}"
+                                Source="/Resources/Bitmaps/info_16x16.png"/>
+                            <TextBlock VerticalAlignment="Center" Text="{StaticResource ResourceKey=resLblAbout}" Style="{StaticResource ResourceKey=TextBlockInToolbar}"/>
+                        </StackPanel>
+                    </Button>
+                    <Separator/>
+                </ToolBar>
+            </ToolBarTray>
+                
+            <ToolBarTray DockPanel.Dock="Top" VerticalAlignment="Top">
+                <ToolBar>
+                    <Button Command="{Binding UpsMainCommand}" ToolTip="UPS">
+                        <StackPanel Orientation="Horizontal">
+                            <Image 
+                                Style="{StaticResource ResourceKey=IconImage}"
+                                Source="/Resources/Bitmaps/ups.png"/>
+                            <TextBlock VerticalAlignment="Center" Text="{StaticResource ResourceKey=resLblUpsTNBrowser}" Style="{StaticResource ResourceKey=TextBlockInToolbar}"/>
+                        </StackPanel>
+                    </Button>
+                    <Separator/>
+                    <Button Command="{Binding UpsMain3DCommand}" ToolTip="UPS">
+                        <StackPanel Orientation="Horizontal">
+                            <Image 
+                                Style="{StaticResource ResourceKey=IconImage}"
+                                Source="/Resources/Bitmaps/ups.png"/>
+                            <TextBlock VerticalAlignment="Center" Text="{StaticResource ResourceKey=resLblUpsTN3DBrowser}" Style="{StaticResource ResourceKey=TextBlockInToolbar}"/>
+                        </StackPanel>
+                    </Button>
+                    <Separator/>
+                </ToolBar>
+            </ToolBarTray>
+
+        </DockPanel>
+    </Grid>
+</b:BaseWindow>

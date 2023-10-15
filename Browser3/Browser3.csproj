@@ -1,0 +1,72 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+    <StartupObject>Browser3.App</StartupObject>
+    <ApplicationIcon>Recycle.ico</ApplicationIcon>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Resources\Bitmaps\DeleteAll.png" />
+    <None Remove="Resources\Bitmaps\DeleteItem.png" />
+    <None Remove="Resources\Bitmaps\info_16x16.png" />
+    <None Remove="Resources\Bitmaps\Refresh.png" />
+    <None Remove="Resources\Bitmaps\Reload.png" />
+    <None Remove="Resources\Bitmaps\ups.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Page Remove="Resources\StringResources.en-US.xaml" />
+    <Page Remove="Resources\StringResources.QuickSearch.en-US.xaml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="Recycle.ico" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Dapper" Version="2.1.4" />
+    <PackageReference Include="LiveCharts.Wpf.NetCore3" Version="0.9.7" />
+    <PackageReference Include="System.Configuration.ConfigurationManager" Version="7.0.0" />
+    <PackageReference Include="System.Data.SqlClient" Version="4.8.5" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Lib.Data\Lib.Data.csproj" />
+    <ProjectReference Include="..\Lib.IniFiles.Net6\Lib.IniFiles.Net6.csproj" />
+    <ProjectReference Include="..\Lib.MVVM.Net6\Lib.MVVM.Net6.csproj" />
+    <ProjectReference Include="..\Lib.Strings.Net6\Lib.Strings.Net6.csproj" />
+    <ProjectReference Include="..\Lib.UI.Net6\Lib.UI.Net6.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Resources\Bitmaps\DeleteAll.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Bitmaps\DeleteItem.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Bitmaps\info_16x16.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Bitmaps\Refresh.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Bitmaps\Reload.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\Bitmaps\ups.png">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\StringResources.en-US.xaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+    <Resource Include="Resources\StringResources.QuickSearch.en-US.xaml">
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>
