@@ -28,6 +28,7 @@ namespace Browser3.Functions
         public void OpenConnection(string aConnectionString)
         {
             DbConnection = new SqlConnection(aConnectionString);
+            DbConnection.Open();
         }
 
         public void CloseConnection()
@@ -99,6 +100,23 @@ namespace Browser3.Functions
             return result;
         }
 
+        /// <summary>
+        ///     Run Scalar select statement
+        /// </summary>
+        /// <param name="aSql"></param>
+        /// <returns></returns>
+        public int RunScalarExecStatement(string aSql)
+        {
+            int result = -1;
+
+            using (SqlCommand sqlCommand = new SqlCommand(aSql, DbConnection))
+            {
+                result = (int)sqlCommand.ExecuteScalar();
+            }
+
+            return result;
+        }
+
         public int RunNonExecStatementEx(string aSql) 
         {
             int result;
@@ -138,8 +156,28 @@ namespace Browser3.Functions
 
                         if (dataTable.Columns.Contains(propertyName))
                         {
-                            var value = row[propertyName];
-                            property.SetValue(item, Convert.ChangeType(value, property.PropertyType));
+                            object value = row[propertyName];
+
+                            if (property.PropertyType.IsGenericType && property.PropertyType.GetGenericTypeDefinition() == typeof(Nullable<>))
+                            {
+                                // Property is nullable
+                                if (value == DBNull.Value)
+                                {
+                                    property.SetValue(item, null);
+                                }
+                                else
+                                {
+                                    property.SetValue(item, Convert.ChangeType(value, Nullable.GetUnderlyingType(property.PropertyType)));
+                                }
+                            }
+                            else
+                            {
+                                // Property is non-nullable
+                                if (value != DBNull.Value)
+                                {
+                                    property.SetValue(item, Convert.ChangeType(value, property.PropertyType));
+                                }
+                            }
                         }
                     }
                     collection.Add(item);

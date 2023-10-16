@@ -53,17 +53,17 @@ namespace Browser3.ViewModels
 
             Model.ListOfCompany = AppData.DbMSSQL.ConvertDataTableToObservableCollection<CommonIdValueObject>
             (
-                CoreCache.GetDataFromCacheOrDatabase("CONST_SIMPLE_LIST_OF_COMPANY", CoreQueriers.CONST_SIMPLE_LIST_OF_COMPANY)
+                CoreCache.GetDataFromCacheOrDatabase<DataTable>(CoreQueriers.CONST_SIMPLE_LIST_OF_COMPANY, "CONST_SIMPLE_LIST_OF_COMPANY")
             );
 
-            Model.ListOfCompany = AppData.DbMSSQL.ConvertDataTableToObservableCollection<CommonIdValueObject>
+            Model.ListOfSubCompany = AppData.DbMSSQL.ConvertDataTableToObservableCollection<CommonIdValueObject>
             (
-                CoreCache.GetDataFromCacheOrDatabase("CONST_SIMPLE_LIST_OF_SUBCOMPANY", CoreQueriers.CONST_SIMPLE_LIST_OF_SUBCOMPANY)
+                CoreCache.GetDataFromCacheOrDatabase<DataTable>(CoreQueriers.CONST_SIMPLE_LIST_OF_SUBCOMPANY, "CONST_SIMPLE_LIST_OF_SUBCOMPANY")
             );
 
-            Model.ListOfCompany = AppData.DbMSSQL.ConvertDataTableToObservableCollection<CommonIdValueObject>
+            Model.ListOfAccounts = AppData.DbMSSQL.ConvertDataTableToObservableCollection<CommonIdValueObject>
             (
-                CoreCache.GetDataFromCacheOrDatabase("CONST_SIMPLE_LIST_OF_ACCOUNTS", CoreQueriers.CONST_SIMPLE_LIST_OF_ACCOUNTS)
+                CoreCache.GetDataFromCacheOrDatabase<DataTable>(CoreQueriers.CONST_SIMPLE_LIST_OF_ACCOUNTS, "CONST_SIMPLE_LIST_OF_ACCOUNTS")
             );
 
             Reload();
@@ -249,7 +249,7 @@ namespace Browser3.ViewModels
             string tnWhere = BuildWhereCondition();
             string top = BuildShowTopCondition();
 
-            string queryTemplate = 
+            string queryTemplate =
                 "select {0} " +
                 "[TNID], [TNCompanyID], [TNSubCompany], [TNAccountID], [TNTrackingNumber], [TNService], [TNWeightLbs], [TNShipToCity], [TNShipToState], [TNShipToZIP], [TNShipToCountry], [TNShipFromCity], [TNShipFromState], [TNShipFromZIP], [TNShipFromCountry], " +
                 "[TNShippingStatus], " +
@@ -262,10 +262,24 @@ namespace Browser3.ViewModels
             string query = String.Format(queryTemplate, top, tnWhere);
             string queryCount = String.Format(CoreQueriers.CONST_TN_COUNT_TEMPLATE, tnWhere);
 
-            //
+            // Way 1
+            using (var waitCursor = new WaitCursor(Cursors.Wait))
+            {
+                Model.TNs = AppData.DbMSSQL.ConvertDataTableToObservableCollection<TNBaseEx>
+                (
+                    CoreCache.GetDataFromCacheOrDatabase<DataTable>(query)
+                );
+            }
+            // Way 2
+            //WindowsUI.RunInCursorBusyMode
+            //(
+            //    () => Model.TNs = AppData.DbMSSQL.ConvertDataTableToObservableCollection<TNBaseEx>
+            //    (
+            //        CoreCache.GetDataFromCacheOrDatabase<DataTable>(query)
+            //    )
+            //);
 
-            Model.TNs = AppData.DbMSSQL.RunExecStatement<TNBaseEx>(query);
-            int result = AppData.DbMSSQL.RunNonExecStatementEx(queryCount);
+            int result = CoreCache.GetDataFromCacheOrDatabase<int>(queryCount);
 
             Model.TotalCount = result;
             Model.TotalCountAfterFilter = Model.TNs.Count;
