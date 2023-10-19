@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
+using System.Windows.Input;
 
 namespace Lib.UI.Net6
 {
@@ -155,7 +156,7 @@ namespace Lib.UI.Net6
         /// 
         /// </summary>
         /// <returns></returns>
-        private static Window GetTopWindow()
+        private static Window? GetTopWindow()
         {
             WindowCollection windowCollection = Application.Current.Windows;
             List<Window> realWindowCollection = new List<Window>();

@@ -54,5 +54,10 @@ namespace Browser3.Views
 
             ((UpsMainViewWindowVM)DataContext).Model.TextForHighlight = filterText;
         }
+
+        //private void MainFilterBar_FilterChanged(object sender, RoutedEventArgs e)
+        //{
+        //    RefreshMainDataGridCommand?.Execute(null);
+        //}
     }
 }

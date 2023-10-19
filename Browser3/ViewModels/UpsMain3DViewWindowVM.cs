@@ -21,6 +21,7 @@ using System.Net;
 using System.Windows.Controls.Primitives;
 using System.Windows.Controls;
 using Lib.UI.Net6;
+using System.Collections;
 
 namespace Browser3.ViewModels
 {
@@ -47,23 +48,19 @@ namespace Browser3.ViewModels
         {
             Model.ListOfCommonPhrases = CoreClassification.CommonPhrases;
 
-            //Model.ListOfCompany = AppData.DbMSSQL.RunExecStatement<CommonIdValueObject>(CoreQueriers.CONST_SIMPLE_LIST_OF_COMPANY);
-            //Model.ListOfSubCompany = AppData.DbMSSQL.RunExecStatement<CommonIdValueObject>(CoreQueriers.CONST_SIMPLE_LIST_OF_SUBCOMPANY);
-            //Model.ListOfAccounts = AppData.DbMSSQL.RunExecStatement<CommonIdValueObject>(CoreQueriers.CONST_SIMPLE_LIST_OF_ACCOUNTS);
-
             Model.ListOfCompany = AppData.DbMSSQL.ConvertDataTableToObservableCollection<CommonIdValueObject>
             (
-                CoreCache.GetDataFromCacheOrDatabase("CONST_SIMPLE_LIST_OF_COMPANY", CoreQueriers.CONST_SIMPLE_LIST_OF_COMPANY)
+                CoreCache.GetDataFromCacheOrDatabase<DataTable>(CoreQueriers.CONST_SIMPLE_LIST_OF_COMPANY, "CONST_SIMPLE_LIST_OF_COMPANY")
             );
 
-            Model.ListOfCompany = AppData.DbMSSQL.ConvertDataTableToObservableCollection<CommonIdValueObject>
+            Model.ListOfSubCompany = AppData.DbMSSQL.ConvertDataTableToObservableCollection<CommonIdValueObject>
             (
-                CoreCache.GetDataFromCacheOrDatabase("CONST_SIMPLE_LIST_OF_SUBCOMPANY", CoreQueriers.CONST_SIMPLE_LIST_OF_SUBCOMPANY)
+                CoreCache.GetDataFromCacheOrDatabase<DataTable>(CoreQueriers.CONST_SIMPLE_LIST_OF_SUBCOMPANY, "CONST_SIMPLE_LIST_OF_SUBCOMPANY")
             );
 
-            Model.ListOfCompany = AppData.DbMSSQL.ConvertDataTableToObservableCollection<CommonIdValueObject>
+            Model.ListOfAccounts = AppData.DbMSSQL.ConvertDataTableToObservableCollection<CommonIdValueObject>
             (
-                CoreCache.GetDataFromCacheOrDatabase("CONST_SIMPLE_LIST_OF_ACCOUNTS", CoreQueriers.CONST_SIMPLE_LIST_OF_ACCOUNTS)
+                CoreCache.GetDataFromCacheOrDatabase<DataTable>(CoreQueriers.CONST_SIMPLE_LIST_OF_ACCOUNTS, "CONST_SIMPLE_LIST_OF_ACCOUNTS")
             );
 
             Reload();
@@ -215,8 +212,20 @@ namespace Browser3.ViewModels
             Model.TNs3DView2 = new SeriesCollection();
 
             // Main view 1
-            Model.TNs = AppData.DbMSSQL.RunExecStatement<IdValueCommon>(query1);
-            Model.TNsView2 = AppData.DbMSSQL.RunExecStatement<IdValueCommon>(query2);
+            // Exec query with cache
+            Model.TNs = AppData.DbMSSQL.ConvertDataTableToObservableCollection<IdValueCommon>
+            (
+                CoreCache.GetDataFromCacheOrDatabase<DataTable>(query1)
+            );
+
+            // Exec query with cache
+            Model.TNsView2 = AppData.DbMSSQL.ConvertDataTableToObservableCollection<IdValueCommon>
+            (
+                CoreCache.GetDataFromCacheOrDatabase<DataTable>(query2)
+            );
+
+            //Model.TNs = AppData.DbMSSQL.RunExecStatement<IdValueCommon>(query1);
+            //Model.TNsView2 = AppData.DbMSSQL.RunExecStatement<IdValueCommon>(query2);
 
             // Data for View 1
             foreach (IdValueCommon item in Model.TNs)
@@ -287,7 +296,7 @@ namespace Browser3.ViewModels
             }
 
             // Total Count
-            int result = AppData.DbMSSQL.RunNonExecStatementEx(queryCount);
+            int result = CoreCache.GetDataFromCacheOrDatabase<int>(queryCount);
 
             Model.TotalCount = result;
         }

@@ -41,75 +41,43 @@
 
                 <StackPanel Grid.Row="0" >
                 
-                <ToolBarTray VerticalAlignment="Top">
-                    <ToolBar BandIndex="2">
-                        <TextBlock Text="Company" Style="{StaticResource ResourceKey=TextBlockInToolbar}" />
-                        <ComboBox
-                            KeyDown="ComboBox_KeyDown"
-                            Style="{StaticResource ResourceKey=ComboBoxDef150}"
-                            ItemsSource="{Binding Path=Model.ListOfCompany}"
-                            SelectedValue="{Binding Model.SelectedCompanyID}"
-                            SelectedValuePath="ID"
-                            />
-                        
-                        <Separator/>
-                        <TextBlock Text="Sub Company" Style="{StaticResource ResourceKey=TextBlockInToolbar}" />
-                        <ComboBox
-                            KeyDown="ComboBox_KeyDown"
-                            Style="{StaticResource ResourceKey=ComboBoxDef150}"
-                            ItemsSource="{Binding Path=Model.ListOfSubCompany}"
-                            Text="{Binding Path=Model.SelectedSubCompany, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-
-                        <Separator/>
-                        <TextBlock Text="Account" Style="{StaticResource ResourceKey=TextBlockInToolbar}" />
-                        <ComboBox
-                            KeyDown="ComboBox_KeyDown"
-                            Style="{StaticResource ResourceKey=ComboBoxDef100}"
-                            ItemsSource="{Binding Path=Model.ListOfAccounts}"
-                            Text="{Binding Path=Model.SelectedAccount, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                            <Separator/>
-                    </ToolBar>
-
-
-                    <ToolBar BandIndex="3">
-                        <TextBlock Text="TN" Style="{StaticResource ResourceKey=TextBlockInToolbar}" />
-                            <TextBox Width="150" KeyDown="ComboBox_KeyDown" MaxLength="25" Text="{Binding Path=Model.SelectedTN, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                        <Separator/>
-                        <TextBlock Text="Text" Style="{StaticResource ResourceKey=TextBlockInToolbar}" />
-                        <ComboBox 
-                            KeyDown="ComboBox_KeyDown"
-                            Style="{StaticResource ResourceKey=ComboBoxDef250}"
-                            ItemsSource="{Binding Path=Model.ListOfCommonPhrases}"
-                            Text="{Binding Path=Model.SelectedCommonPhrase, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
-                        <Separator/>
-                    </ToolBar>
-
-                </ToolBarTray>
-
-                <!-- Date Selector bar Component -->
-
-                <c:DateSelectorBar
-                    SelectedStartDate="{Binding Path=Model.StartRange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    SelectedEndDate="{Binding Path=Model.EndRange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
-                    Grid.Row="1" VerticalAlignment="Top" />
-
-                <!-- -->
+                    <c:MainFilterBar 
+                        ListOfCompany="{Binding Path=Model.ListOfCompany, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedCompanyID="{Binding Path=Model.SelectedCompanyID, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        ListOfSubCompany="{Binding Path=Model.ListOfSubCompany, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedSubCompany="{Binding Path=Model.SelectedSubCompany, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        ListOfAccounts="{Binding Path=Model.ListOfAccounts, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedAccount="{Binding Path=Model.SelectedAccount, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        ListOfCommonPhrases="{Binding Path=Model.ListOfCommonPhrases, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedCommonPhrase="{Binding Path=Model.SelectedCommonPhrase, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedTN="{Binding Path=Model.SelectedTN, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        FilterChanged="ComboBox_KeyDown"
+                        Grid.Row="1" VerticalAlignment="Top" />
                     
-                <ToolBarTray VerticalAlignment="Top">
-                    <ToolBar BandIndex="0">
-                        <Button Command="{Binding RefreshCommand}">
-                            <StackPanel Orientation="Horizontal">
-                                <Image 
-                                Style="{StaticResource ResourceKey=IconImage}"
-                                Source="/Resources/Bitmaps/Refresh.png"/>
-                                    <TextBlock Style="{StaticResource ResourceKey=TextBlockInToolbar}" Text="{StaticResource ResourceKey=resLblRefresh}" />
-                            </StackPanel>
-                        </Button>
+                        <!-- Date Selector bar Component -->
 
-                        <Separator/>
-                    </ToolBar>
+                    <c:DateSelectorBar
+                        SelectedStartDate="{Binding Path=Model.StartRange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        SelectedEndDate="{Binding Path=Model.EndRange, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        Grid.Row="1" VerticalAlignment="Top" />
 
-                </ToolBarTray>
+                    <!-- -->
+                    
+                    <ToolBarTray VerticalAlignment="Top">
+                        <ToolBar BandIndex="0">
+                            <Button Command="{Binding RefreshCommand}">
+                                <StackPanel Orientation="Horizontal">
+                                    <Image 
+                                    Style="{StaticResource ResourceKey=IconImage}"
+                                    Source="/Resources/Bitmaps/Refresh.png"/>
+                                        <TextBlock Style="{StaticResource ResourceKey=TextBlockInToolbar}" Text="{StaticResource ResourceKey=resLblRefresh}" />
+                                </StackPanel>
+                            </Button>
+
+                            <Separator/>
+                        </ToolBar>
+
+                    </ToolBarTray>
 
                 </StackPanel>
 

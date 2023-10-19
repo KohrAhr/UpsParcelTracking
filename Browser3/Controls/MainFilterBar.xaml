@@ -1,0 +1,62 @@
+﻿<UserControl x:Class="Browser3.Controls.MainFilterBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:Browser3.Controls"
+             xmlns:vm="clr-namespace:Browser3.Controls" 
+             d:DataContext="{d:DesignInstance Type=vm:MainFilterBar}" 
+             mc:Ignorable="d" 
+             d:DesignHeight="30" d:DesignWidth="1200" Background="Transparent">
+
+    <Grid>
+
+        <ToolBarTray VerticalAlignment="Top">
+            <ToolBar BandIndex="2">
+                <TextBlock Text="Company" Style="{StaticResource ResourceKey=TextBlockInToolbar}" />
+                <ComboBox
+                            KeyDown="ComboBox_KeyDown"
+                            Style="{StaticResource ResourceKey=ComboBoxDef150}"
+                            ItemsSource="{Binding Path=ListOfCompany, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            SelectedValue="{Binding Path=SelectedCompanyID, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            SelectedValuePath="ID"
+                            />
+
+                <Separator/>
+                <TextBlock Text="Sub Company" Style="{StaticResource ResourceKey=TextBlockInToolbar}" />
+                <ComboBox
+                            KeyDown="ComboBox_KeyDown"
+                            Style="{StaticResource ResourceKey=ComboBoxDef150}"
+                            ItemsSource="{Binding Path=ListOfSubCompany, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            Text="{Binding Path=SelectedSubCompany, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+
+                <Separator/>
+                <TextBlock Text="Account" Style="{StaticResource ResourceKey=TextBlockInToolbar}" />
+                <ComboBox
+                            KeyDown="ComboBox_KeyDown"
+                            Style="{StaticResource ResourceKey=ComboBoxDef100}"
+                            ItemsSource="{Binding Path=ListOfAccounts, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                            Text="{Binding Path=SelectedAccount, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                <Separator/>
+            </ToolBar>
+
+
+            <ToolBar BandIndex="3">
+                <TextBlock Text="TN" Style="{StaticResource ResourceKey=TextBlockInToolbar}" />
+                <TextBox Width="150" 
+                    KeyDown="ComboBox_KeyDown" MaxLength="25" 
+                    Text="{Binding Path=SelectedTN, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                <Separator/>
+                <TextBlock Text="Text" Style="{StaticResource ResourceKey=TextBlockInToolbar}" />
+                <ComboBox 
+                    KeyDown="ComboBox_KeyDown"
+                    Style="{StaticResource ResourceKey=ComboBoxDef250}"
+                    ItemsSource="{Binding Path=ListOfCommonPhrases, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"
+                    Text="{Binding Path=SelectedCommonPhrase, RelativeSource={RelativeSource AncestorType=UserControl}, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}"/>
+                <Separator/>
+            </ToolBar>
+
+        </ToolBarTray>
+
+    </Grid>
+</UserControl>

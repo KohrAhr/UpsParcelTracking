@@ -10,6 +10,9 @@
     <Compile Update="Controls\DateSelectorBar.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Controls\MainFilterBar.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Controls\QuickSearch.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -19,6 +22,9 @@
   </ItemGroup>
   <ItemGroup>
     <Page Update="Controls\DateSelectorBar.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Controls\MainFilterBar.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Controls\QuickSearch.xaml">
