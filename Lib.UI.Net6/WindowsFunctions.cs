@@ -155,6 +155,27 @@ namespace Lib.UI.Net6
         /// <summary>
         /// 
         /// </summary>
+        /// <param name="parentWindow"></param>
+        /// <param name="aAction"></param>
+        public static void RunInCursorBusyMode(Action aAction)
+        {
+            Cursor cursor = Mouse.OverrideCursor;
+            Mouse.OverrideCursor = Cursors.Wait;
+            Mouse.UpdateCursor();
+            try
+            {
+                aAction.Invoke();
+            }
+            finally
+            {
+                Mouse.OverrideCursor = cursor;
+                Mouse.UpdateCursor();
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
         /// <returns></returns>
         private static Window? GetTopWindow()
         {
