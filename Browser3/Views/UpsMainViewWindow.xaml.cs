@@ -33,8 +33,7 @@ namespace Browser3.Views
         {
             InitializeComponent();
 
-            // ??
-            RefreshMainDataGridCommand = ((UpsMainViewWindowVM)DataContext).RefreshCommand;
+            RefreshMainDataGridCommand = ((UpsMainViewWindowVM)DataContext).RefreshProcCommand;
         }
 
         private void quickSearch_TextForSearchChanged(object sender, RoutedEventArgs e)
@@ -54,10 +53,5 @@ namespace Browser3.Views
 
             ((UpsMainViewWindowVM)DataContext).Model.TextForHighlight = filterText;
         }
-
-        //private void MainFilterBar_FilterChanged(object sender, RoutedEventArgs e)
-        //{
-        //    RefreshMainDataGridCommand?.Execute(null);
-        //}
     }
 }

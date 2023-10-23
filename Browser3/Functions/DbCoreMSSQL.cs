@@ -56,7 +56,6 @@ namespace Browser3.Functions
                 {
                     sqlDataAdapter.Fill(result);
                 }
-
             }
 
             return result;

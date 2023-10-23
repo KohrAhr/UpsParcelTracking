@@ -1,24 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Lib.MVVM.Net6;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Browser3.Types
 {
-    public class IdValueCommon : PropertyChangedNotificationEx
+    public partial class IdValueCommon : ObservableValidator
     {
-        public int? ID
-        {
-            get => GetValue(() => ID);
-            set => SetValue(() => ID, value);
-        }
+        [ObservableProperty]
+        int? iD;
 
-        public string ResultValue
-        {
-            get => GetValue(() => ResultValue);
-            set => SetValue(() => ResultValue, value);
-        }
+        [ObservableProperty]
+        string resultValue = string.Empty;
     }
 }

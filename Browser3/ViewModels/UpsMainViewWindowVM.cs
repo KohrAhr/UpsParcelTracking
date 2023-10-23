@@ -1,36 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
 using System.Data;
-using System.Data.Common;
-using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
 using System.Windows.Input;
 using Browser3.Core;
 using Browser3.Functions;
 using Browser3.Models;
 using Browser3.Types;
-using Dapper;
-using Lib.MVVM.Net6;
 using Lib.UI.Net6;
+using CommunityToolkit.Mvvm.ComponentModel;
+using CommunityToolkit.Mvvm.Input;
 
 
 namespace Browser3.ViewModels
 {
-    public class UpsMainViewWindowVM
+    public partial class UpsMainViewWindowVM : ObservableObject
     {
-        #region Command definition
-        public ICommand? RefreshCommand { get; set; }
-        public ICommand? CopyToClipboardTNCommand { get; set; }
-        public ICommand? CopyToClipboardCompanyNameCommand { get; set; }
-        public ICommand? CopyToClipboardSubCompanyNameCommand { get; set; }
-        public ICommand? CopyToClipboardAccountIdCommand { get; set; }
-        public ICommand? CopyToClipboardAllVisibleTNsCommand { get; set; }
-        #endregion Command definition
-
         public UpsMainViewModel Model
         {
             get; set;
@@ -39,8 +22,6 @@ namespace Browser3.ViewModels
         public UpsMainViewWindowVM()
         {
             InitData();
-
-            InitCommands();
         }
 
         private void InitData()
@@ -69,44 +50,56 @@ namespace Browser3.ViewModels
             Reload();
         }
 
-        private void InitCommands()
-        {
-            RefreshCommand = new RelayCommand(RefreshCommandProc);
-            CopyToClipboardTNCommand = new RelayCommand(CopyToClipboardTNCommandProc);
-            CopyToClipboardCompanyNameCommand = new RelayCommand(CopyToClipboardCompanyNameCommandProc);
-            CopyToClipboardSubCompanyNameCommand = new RelayCommand(CopyToClipboardSubCompanyNameCommandProc);
-            CopyToClipboardAccountIdCommand = new RelayCommand(CopyToClipboardAccountIdCommandProc);
-            CopyToClipboardAllVisibleTNsCommand = new RelayCommand(CopyToClipboardAllVisibleTNsCommandProc);
-        }
-
-        private void CopyToClipboardAllVisibleTNsCommandProc(object obj)
+        [RelayCommand]
+        void CopyToClipboardAllVisibleTNsProc()
         {
             throw new NotImplementedException();
         }
 
-        private void CopyToClipboardAccountIdCommandProc(object obj)
+        [RelayCommand]
+        void CopyToClipboardAccountIdProc()
         {
+            if (Model.SelectedItem == null)
+            {
+                return;
+            }
             ClipboardFunctions.CopyValueToClipboard<TNBaseEx>(Model.SelectedItem, "TNAccountID");
         }
 
-        private void CopyToClipboardSubCompanyNameCommandProc(object obj)
+        [RelayCommand]
+        void CopyToClipboardSubCompanyNameProc()
         {
+            if (Model.SelectedItem == null)
+            {
+                return;
+            }
             ClipboardFunctions.CopyValueToClipboard<TNBaseEx>(Model.SelectedItem, "TNSubCompany");
         }
 
-        private void CopyToClipboardCompanyNameCommandProc(object obj)
+        [RelayCommand]
+        void CopyToClipboardCompanyNameProc()
         {
+            if (Model.SelectedItem == null)
+            {
+                return;
+            }
             ClipboardFunctions.CopyValueToClipboard<TNBaseEx>(Model.SelectedItem, "CompanyTitle");
         }
 
-        private void CopyToClipboardTNCommandProc(object obj)
+        [RelayCommand]
+        void CopyToClipboardTNProc()
         {
+            if (Model.SelectedItem == null)
+            {
+                return;
+            }
             ClipboardFunctions.CopyValueToClipboard<TNBaseEx>(Model.SelectedItem, "TNTrackingNumber");
         }
 
-        private void RefreshCommandProc(object obj)
-        {
-            Reload();
+        [RelayCommand]
+        void RefreshProc()
+        { 
+            Reload(); 
         }
 
         private string BuildWhereCondition()
@@ -262,7 +255,6 @@ namespace Browser3.ViewModels
             string query = String.Format(queryTemplate, top, tnWhere);
             string queryCount = String.Format(CoreQueriers.CONST_TN_COUNT_TEMPLATE, tnWhere);
 
-            // Way 1
             using (var waitCursor = new WaitCursor(Cursors.Wait))
             {
                 Model.TNs = AppData.DbMSSQL.ConvertDataTableToObservableCollection<TNBaseEx>
@@ -270,14 +262,6 @@ namespace Browser3.ViewModels
                     CoreCache.GetDataFromCacheOrDatabase<DataTable>(query)
                 );
             }
-            // Way 2
-            //WindowsUI.RunInCursorBusyMode
-            //(
-            //    () => Model.TNs = AppData.DbMSSQL.ConvertDataTableToObservableCollection<TNBaseEx>
-            //    (
-            //        CoreCache.GetDataFromCacheOrDatabase<DataTable>(query)
-            //    )
-            //);
 
             int result = CoreCache.GetDataFromCacheOrDatabase<int>(queryCount);
 

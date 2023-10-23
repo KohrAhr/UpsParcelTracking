@@ -17,7 +17,7 @@
         ResizeMode="CanResizeWithGrip">
 
     <Window.InputBindings>
-        <KeyBinding Key="F5" Command="{Binding Path=RefreshCommand}" />
+        <KeyBinding Key="F5" Command="{Binding Path=RefreshProcCommand}" />
     </Window.InputBindings>
 
     <Window.DataContext>
@@ -103,7 +103,7 @@
 
                 <ToolBarTray VerticalAlignment="Top">
                     <ToolBar BandIndex="0">
-                        <Button Command="{Binding RefreshCommand}">
+                        <Button Command="{Binding RefreshProcCommand}">
                             <StackPanel Orientation="Horizontal">
                                 <Image 
                                 Style="{StaticResource ResourceKey=IconImage}"
@@ -239,7 +239,7 @@
                     <DataGrid.ContextMenu>
                         <ContextMenu>
 
-                            <MenuItem Command="{Binding Path=RefreshCommand}">
+                            <MenuItem Command="{Binding Path=RefreshProcCommand}">
                                 <MenuItem.Header>
                                     <WrapPanel>
                                         <Image Style="{StaticResource ResourceKey=IconImage}" Source="/Resources/Bitmaps/Refresh.png"/>
@@ -251,28 +251,28 @@
                             <Separator />
 
                             <MenuItem Header="Copy to Clipboard">
-                                <MenuItem Command="{Binding Path=CopyToClipboardTNCommand}">
+                                <MenuItem Command="{Binding Path=CopyToClipboardTNProcCommand}">
                                     <MenuItem.Header>
                                         <WrapPanel>
                                             <TextBlock Text="Tracking Number" />
                                         </WrapPanel>
                                     </MenuItem.Header>
                                 </MenuItem>
-                                <MenuItem Command="{Binding Path=CopyToClipboardCompanyNameCommand}">
+                                <MenuItem Command="{Binding Path=CopyToClipboardCompanyNameProcCommand}">
                                     <MenuItem.Header>
                                         <WrapPanel>
                                             <TextBlock Text="Company name" />
                                         </WrapPanel>
                                     </MenuItem.Header>
                                 </MenuItem>
-                                <MenuItem Command="{Binding Path=CopyToClipboardSubCompanyNameCommand}">
+                                <MenuItem Command="{Binding Path=CopyToClipboardSubCompanyNameProcCommand}">
                                     <MenuItem.Header>
                                         <WrapPanel>
                                             <TextBlock Text="Sub Company name" />
                                         </WrapPanel>
                                     </MenuItem.Header>
                                 </MenuItem>
-                                <MenuItem Command="{Binding Path=CopyToClipboardAccountIdCommand}">
+                                <MenuItem Command="{Binding Path=CopyToClipboardAccountIdProcCommand}">
                                     <MenuItem.Header>
                                         <WrapPanel>
                                             <TextBlock Text="Account Id" />
@@ -280,7 +280,7 @@
                                     </MenuItem.Header>
                                 </MenuItem>
                                 <Separator/>
-                                <MenuItem Command="{Binding Path=CopyToClipboardAllVisibleTNsCommand}">
+                                <MenuItem Command="{Binding Path=CopyToClipboardAllVisibleTNsProcCommand}">
                                     <MenuItem.Header>
                                         <WrapPanel>
                                             <TextBlock Text="All visible Tracking Numbers" />

@@ -1,9 +1,5 @@
-﻿using Browser3.Core;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
+using Browser3.Core;
 
 namespace Browser3.Types
 {
@@ -21,13 +17,14 @@ namespace Browser3.Types
             {
                 string? result;
 
-                result = GetValue(() => TNTrackHTML);
+                result = TNTrackHTML;
 
                 result = result?.Replace(";", "; ");
 
                 return result;
             }
-            set => SetValue(() => TNTrackHTML, value);
+
+            set { }
         }
 
         public string? TNShippingStatusEx
@@ -40,7 +37,8 @@ namespace Browser3.Types
 
                 return result;
             }
-            set => SetValue(() => TNTrackHTML, value);
+
+            set { }
         }
 
         /// <summary>
@@ -48,8 +46,7 @@ namespace Browser3.Types
         /// </summary>
         public string CompanyTitle
         {
-            get => GetValue(() => CompanyTitle);
-            set => SetValue(() => CompanyTitle, value);
-        }
+            get; set;
+        } = string.Empty;
     }
 }

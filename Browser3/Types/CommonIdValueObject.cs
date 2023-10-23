@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Text;
-using System.Threading.Tasks;
-using Lib.MVVM.Net6;
+﻿using CommunityToolkit.Mvvm.ComponentModel;
 
 namespace Browser3.Types
 {
@@ -12,18 +6,12 @@ namespace Browser3.Types
     ///     Why not KeyValuePair int, string ?
     ///     I need Proper Names for XAML Binding ?
     /// </summary>
-    public class CommonIdValueObject : PropertyChangedNotificationEx
+    public partial class CommonIdValueObject : ObservableValidator
     {
-        public int ID
-        {
-            get => GetValue(() => ID);
-            set => SetValue(() => ID, value);
-        }
+        [ObservableProperty]
+        int iD;
 
-        public string Name
-        {
-            get => GetValue(() => Name);
-            set => SetValue(() => Name, value);
-        }
+        [ObservableProperty]
+        string name = string.Empty;
     }
 }
