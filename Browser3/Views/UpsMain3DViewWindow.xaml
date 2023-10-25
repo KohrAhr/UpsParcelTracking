@@ -18,7 +18,7 @@
         ResizeMode="CanResizeWithGrip">
 
     <Window.InputBindings>
-        <KeyBinding Key="F5" Command="{Binding Path=RefreshCommand}" />
+        <KeyBinding Key="F5" Command="{Binding Path=RefreshProcCommand}" />
     </Window.InputBindings>
 
     <Window.DataContext>
@@ -65,7 +65,7 @@
                     
                     <ToolBarTray VerticalAlignment="Top">
                         <ToolBar BandIndex="0">
-                            <Button Command="{Binding RefreshCommand}">
+                            <Button Command="{Binding RefreshProcCommand}">
                                 <StackPanel Orientation="Horizontal">
                                     <Image 
                                     Style="{StaticResource ResourceKey=IconImage}"
@@ -106,7 +106,7 @@
                     <lvc:PieChart LegendLocation="Bottom" 
                         DisableAnimations="False"
                         InnerRadius="150" 
-                        DataClickCommand="{Binding DrillDownView2Command}"
+                        DataClickCommand="{Binding Path=DrillDownView2ProcCommand}"
                         Grid.Column="2" Hoverable="False" Series="{Binding Model.TNs3DView2}">
                     </lvc:PieChart>
                 </Grid>

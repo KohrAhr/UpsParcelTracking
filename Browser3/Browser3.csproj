@@ -40,7 +40,6 @@
   <ItemGroup>
     <ProjectReference Include="..\Lib.Data\Lib.Data.csproj" />
     <ProjectReference Include="..\Lib.IniFiles.Net6\Lib.IniFiles.Net6.csproj" />
-    <ProjectReference Include="..\Lib.MVVM.Net6\Lib.MVVM.Net6.csproj" />
     <ProjectReference Include="..\Lib.Strings.Net6\Lib.Strings.Net6.csproj" />
     <ProjectReference Include="..\Lib.UI.Net6\Lib.UI.Net6.csproj" />
   </ItemGroup>

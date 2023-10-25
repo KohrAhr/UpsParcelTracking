@@ -24,21 +24,21 @@
             </ToolBar>
 
             <ToolBar BandIndex="1">
-                <Button Command="{Binding SelectDateRangeCurrentMonth, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <Button Command="{Binding SelectDateRangeCurrentMonthProcCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource ResourceKey=TextBlockInToolbar}" Text="{StaticResource ResourceKey=resLblCurrentMonth}" />
                     </StackPanel>
                 </Button>
                 <Separator/>
 
-                <Button Command="{Binding SelectDateRangeCurrentYear, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <Button Command="{Binding SelectDateRangeCurrentYearProcCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource ResourceKey=TextBlockInToolbar}" Text="{StaticResource ResourceKey=resLblCurrentYear}" />
                     </StackPanel>
                 </Button>
                 <Separator/>
 
-                <Button Command="{Binding SelectDateRangeCurrentWeek, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <Button Command="{Binding SelectDateRangeCurrentWeekProcCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource ResourceKey=TextBlockInToolbar}" Text="{StaticResource ResourceKey=resLblCurrentWeek}" />
                     </StackPanel>
@@ -47,49 +47,49 @@
             </ToolBar>
 
             <ToolBar BandIndex="2">
-                <Button Command="{Binding SelectDateRangeLast15Days, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <Button Command="{Binding SelectDateRangeLast15DaysProcCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource ResourceKey=TextBlockInToolbar}" Text="{StaticResource ResourceKey=resLblLast15Days}" />
                     </StackPanel>
                 </Button>
                 <Separator/>
 
-                <Button Command="{Binding SelectDateRangeLast30Days, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <Button Command="{Binding SelectDateRangeLast30DaysProcCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource ResourceKey=TextBlockInToolbar}" Text="{StaticResource ResourceKey=resLblLast30Days}" />
                     </StackPanel>
                 </Button>
                 <Separator/>
 
-                <Button Command="{Binding SelectDateRangeLast45Days, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <Button Command="{Binding SelectDateRangeLast45DaysProcCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource ResourceKey=TextBlockInToolbar}" Text="{StaticResource ResourceKey=resLblLast45Days}" />
                     </StackPanel>
                 </Button>
                 <Separator/>
 
-                <Button Command="{Binding SelectDateRangeLast60Days, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <Button Command="{Binding SelectDateRangeLast60DaysProcCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource ResourceKey=TextBlockInToolbar}" Text="{StaticResource ResourceKey=resLblLast60Days}" />
                     </StackPanel>
                 </Button>
                 <Separator/>
 
-                <Button Command="{Binding SelectDateRangeLast90Days, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <Button Command="{Binding SelectDateRangeLast90DaysProcCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource ResourceKey=TextBlockInToolbar}" Text="{StaticResource ResourceKey=resLblLast90Days}" />
                     </StackPanel>
                 </Button>
                 <Separator/>
 
-                <Button Command="{Binding SelectDateRangeLast180Days, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <Button Command="{Binding SelectDateRangeLast180DaysProcCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource ResourceKey=TextBlockInToolbar}" Text="{StaticResource ResourceKey=resLblLast180Days}" />
                     </StackPanel>
                 </Button>
                 <Separator/>
 
-                <Button Command="{Binding SelectDateRangeLast365Days, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <Button Command="{Binding SelectDateRangeLast365DaysProcCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource ResourceKey=TextBlockInToolbar}" Text="{StaticResource ResourceKey=resLblLast365Days}" />
                     </StackPanel>
@@ -98,14 +98,14 @@
             </ToolBar>
 
             <ToolBar BandIndex="3">
-                <Button Command="{Binding SelectDateRangeOver1Year, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <Button Command="{Binding SelectDateRangeOver1YearProcCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource ResourceKey=TextBlockInToolbar}" Text="{StaticResource ResourceKey=resLblOver1year}" />
                     </StackPanel>
                 </Button>
                 <Separator/>
 
-                <Button Command="{Binding SelectDateRangeNone, RelativeSource={RelativeSource AncestorType=UserControl}}">
+                <Button Command="{Binding SelectDateRangeNoneProcCommand, RelativeSource={RelativeSource AncestorType=UserControl}}">
                     <StackPanel Orientation="Horizontal">
                         <TextBlock Style="{StaticResource ResourceKey=TextBlockInToolbar}" Text="{StaticResource ResourceKey=resLblNoRange}" />
                     </StackPanel>

@@ -1,18 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows;
-using System.Windows.Input;
+﻿using System.Windows.Input;
+using CommunityToolkit.Mvvm.Input;
 using Browser3.Views;
-using Lib.MVVM.Net6;
 using Lib.Strings.Net6;
 using Lib.UI.Net6;
 
 namespace Browser3.ViewModels
 {
-    public class MainWindowVM
+    public partial class MainWindowVM
     {
         #region Command definition
         public ICommand? InfoCommand { get; set; }
@@ -30,13 +24,14 @@ namespace Browser3.ViewModels
 
         public void InitCommands()
         {
-            InfoCommand = new RelayCommand(InfoCommandProc);
-            UpsMainCommand = new RelayCommand(UpsMainCommandProc);
-            UpsMain3DCommand = new RelayCommand(UpsMain3DCommandProc);
+            InfoCommand = new RelayCommand(InfoProc);
+            UpsMainCommand = new RelayCommand(UpsMainProc);
+            UpsMain3DCommand = new RelayCommand(UpsMain3DProc);
         }
 
         #region Commands implementation
-        private void InfoCommandProc(Object aO)
+        [RelayCommand]
+        void InfoProc()
         {
             CommonDialogs.ShowInfoMessage(
                 StringsFunctions.ResourceString("resLblAbout"), 
@@ -44,13 +39,15 @@ namespace Browser3.ViewModels
             );
         }
 
-        private void UpsMainCommandProc(Object aO) 
+        [RelayCommand]
+        void UpsMainProc() 
         {
             // Show non modal window -- UPS -- Common View
             WindowsUI.ShowWindow<UpsMainViewWindow>(true);
         }
 
-        private void UpsMain3DCommandProc(Object aO)
+        [RelayCommand]
+        void UpsMain3DProc()
         {
             // Show non modal window -- UPS -- Common View
             WindowsUI.ShowWindow<UpsMain3DViewWindow>(true);
